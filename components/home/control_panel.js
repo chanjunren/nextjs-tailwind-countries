@@ -8,7 +8,7 @@ function DropDownItem({ regionName, setFilter, toggleDropDown }) {
 
   return (
     <button
-      className="p-3 shadow-sm w-full text-left rounded-md hover:bg-cyan-600 hover:text-white"
+      className="p-3 shadow-sm w-full text-left rounded-md hover:bg-cyan-600 hover:text-white bg-white"
       onClick={selectItem}
     >
       {regionName}
@@ -43,12 +43,13 @@ export default function ControlPanel({
           <FaChevronDown />
         </button>
         <div
-          className={`absolute duration-500 left-0 top-16 w-full rounded-md shadow-md ${
+          className={`absolute duration-700 left-0 top-16 w-full rounded-md shadow-md ${
             dropdownActive ? `opacity-100` : 'opacity-0 hidden'
           }`}
         >
           {regions.map((region) => (
             <DropDownItem
+              key={`${region}-dropdown`}
               regionName={region}
               setFilter={setFilter}
               toggleDropDown={toggleDropDown}
