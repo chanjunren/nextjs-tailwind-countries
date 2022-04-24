@@ -1,10 +1,19 @@
 import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
-import NavBar from '../components/navbar';
+import { useState } from 'react';
+import ControlPanel from '../components/home/control_panel';
+
 import { Country, GetCountryResults } from '../utils/country_types';
 
 const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
-  console.log(countries);
+  const regions = ['Africa', 'America', 'Asia', 'Europe', 'Oceania'];
+  const [dropDownActive, setDropDown] = useState(false);
+  const [filter, setFilter] = useState("");
+
+
+  const toggleDropDown = () => {
+    setDropDown(!dropDownActive);
+  };
   return (
     <div>
       <Head>
@@ -12,7 +21,15 @@ const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
         <meta name="description" content="Padlet Take Home Assignment" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NavBar/>
+      <div className="container p-10 flex items-center m-auto">
+        <ControlPanel
+          regions={regions}
+          dropdownActive={dropDownActive}
+          toggleDropDown={toggleDropDown}
+          filter={filter}
+          setFilter={setFilter}
+        />
+      </div>
       {/* <ul>
         {countries.map((country) => {
           return <li>{country.name.common}</li>;
