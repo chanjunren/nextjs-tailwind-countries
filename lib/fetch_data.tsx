@@ -19,6 +19,6 @@ export async function fetchCountry(countryName: string) {
     `trying to fetch from https://restcountries.com/v3.1/name/${countryName}`
   );
   const res = await fetch(`https://restcountries.com/v3.1/name/${countryName}`);
-  const country: Country = await res.json();
-  return country;
+  const country: Country[] = await res.json();
+  return country[0];
 }
