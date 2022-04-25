@@ -1,8 +1,3 @@
-export interface GetCountryResults {
-//   info: Info;
-  results: Country[];
-}
-
 export interface Country {
   name: Name;
   tld?: string[];

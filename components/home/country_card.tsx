@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Country } from '../../utils/country_types';
+import { Country } from '../../lib/country_types';
 
 interface InfoFieldProps {
   field: string;
@@ -17,7 +17,7 @@ function InfoField({ field, value }: InfoFieldProps) {
 
 export default function CountryCard(country: Country) {
   return (
-    <Link href={`/countries/${country.name}`}>
+    <Link href={`/countries/${country.name.common}`}>
       <div className="grid grid-col-1 shadow-lg rounded-md min-w-fit pb-20">
         <img
           className="rounded-md min-w-full lg:h-40 xl:h-52"

@@ -3,11 +3,10 @@ import Head from 'next/head';
 import { useState } from 'react';
 import ControlPanel from '../components/home/control_panel';
 import CountryCard from '../components/home/country_card';
-import { fetchCountries } from '../lib/fetch_countries';
-import { Country } from '../utils/country_types';
+import { fetchCountriesData } from '../lib/fetch_data';
+import { Country, Region } from '../lib/country_types';
 
-const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
-  const regions = ['Africa', 'America', 'Asia', 'Europe', 'Oceania'];
+const Home: NextPage<{ countries: Country[], regions:Region[] }> = ({ countries, regions }) => {
   const [dropDownActive, setDropDown] = useState(false);
   const [filter, setFilter] = useState('');
 
@@ -32,7 +31,6 @@ const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
       </div>
       <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-x-10 gap-y-28 p-10 w-5/6 m-auto">
         {countries.map((country) => {
-          console.log(country);
           return (
             <CountryCard
               key={country.name.common + '_country_card'}
@@ -46,10 +44,12 @@ const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const result = await fetchCountries();
+  const {countries, regionsArray} = await fetchCountriesData();
+  console.log(regionsArray);
   return {
     props: {
-      countries: result,
+      countries: countries,
+      regions: regionsArray
     },
   };
 };
