@@ -1,6 +1,24 @@
 import { FaSearch, FaChevronDown } from 'react-icons/fa';
 
-function DropDownItem({ regionName, setFilter, toggleDropDown }) {
+interface DropDownItemProps {
+  regionName: string;
+  setFilter: (filter: string) => void;
+  toggleDropDown: () => void;
+}
+
+interface ControlPanelProps {
+  regions: string[];
+  dropdownActive: boolean;
+  toggleDropDown: () => void;
+  filter: string;
+  setFilter: (filter: string) => void;
+}
+
+function DropDownItem({
+  regionName,
+  setFilter,
+  toggleDropDown,
+}: DropDownItemProps) {
   function selectItem() {
     setFilter(regionName);
     toggleDropDown();
@@ -8,7 +26,7 @@ function DropDownItem({ regionName, setFilter, toggleDropDown }) {
 
   return (
     <button
-      className="p-3 shadow-sm w-full text-left rounded-md hover:bg-cyan-600 hover:text-white bg-white"
+      className="p-3 shadow-sm w-full text-left hover:bg-cyan-600 hover:text-white bg-white"
       onClick={selectItem}
     >
       {regionName}
@@ -22,7 +40,7 @@ export default function ControlPanel({
   toggleDropDown,
   filter,
   setFilter,
-}) {
+}: ControlPanelProps) {
   return (
     <div className="container flex items-center justify-between min-w-full">
       <div className="container flex items-center shadow-md p-2 rounded-md w-2/5">
@@ -42,20 +60,24 @@ export default function ControlPanel({
           }`}</p>
           <FaChevronDown />
         </button>
-        <div
-          className={`absolute duration-700 left-0 top-16 w-full rounded-md shadow-md ${
-            dropdownActive ? `opacity-100` : 'opacity-0 hidden'
-          }`}
-        >
-          {regions.map((region) => (
-            <DropDownItem
-              key={`${region}-dropdown`}
-              regionName={region}
-              setFilter={setFilter}
-              toggleDropDown={toggleDropDown}
-            />
-          ))}
-        </div>
+        {dropdownActive ? (
+          <div
+            className={`absolute duration-700 ease-in-out left-0 top-16 w-full shadow-md rounded-lg ${
+              dropdownActive ? `opacity-100` : 'opacity-0'
+            }`}
+          >
+            {regions.map((region) => (
+              <DropDownItem
+                key={`${region}-dropdown`}
+                regionName={region}
+                setFilter={setFilter}
+                toggleDropDown={toggleDropDown}
+              />
+            ))}
+          </div>
+        ) : (
+          ''
+        )}
       </div>
     </div>
   );

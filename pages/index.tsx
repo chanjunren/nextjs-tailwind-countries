@@ -3,7 +3,8 @@ import Head from 'next/head';
 import { useState } from 'react';
 import ControlPanel from '../components/home/control_panel';
 import CountryCard from '../components/home/country_card';
-import { Country, GetCountryResults } from '../utils/country_types';
+import { fetchCountries } from '../lib/fetch_countries';
+import { Country } from '../utils/country_types';
 
 const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
   const regions = ['Africa', 'America', 'Asia', 'Europe', 'Oceania'];
@@ -34,12 +35,8 @@ const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
           console.log(country);
           return (
             <CountryCard
-              key={country.name.common + "_country_card"}
-              imgSrc={country.flags.png}
-              countryName={country.name.common}
-              region={country.region}
-              capital={country.capital}
-              population={country.population}
+              key={country.name.common + '_country_card'}
+              {...country}
             />
           );
         })}
@@ -49,8 +46,7 @@ const Home: NextPage<{ countries: Country[] }> = ({ countries }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch('https://restcountries.com/v3.1/all');
-  const result: GetCountryResults = await res.json();
+  const result = await fetchCountries();
   return {
     props: {
       countries: result,

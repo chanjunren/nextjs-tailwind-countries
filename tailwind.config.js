@@ -7,7 +7,7 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}',
     './components/*.{js,ts,jsx,tsx}',
   ],
-  darkMode: false,
+  darkMode: 'class',
   variants: {
     // control which variants should be enabled for each core plugin
     extend: {},
