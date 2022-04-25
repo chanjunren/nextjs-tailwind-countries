@@ -5,29 +5,19 @@ import { GetStaticPaths } from 'next/types';
 import { Country } from '../../../lib/country_types';
 import { fetchCountriesData, fetchCountry } from '../../../lib/fetch_data';
 import InfoField from '../../../components/shared/info_field';
-import { stringify } from 'querystring';
+import { stringifyCurrency, stringifyLanguagesObj } from '../../../lib/parser';
+import { FaArrowLeft } from 'react-icons/fa';
 
 interface BorderTileProps {
   country: string;
 }
 
 function BorderTile({ country }: BorderTileProps) {
-  return <div>{country}</div>;
-}
-
-function stringifyArr(languages: Country['languages']): string {
-  let output = '';
-  for (let language of Object.values(languages as Object)) {
-    output += language;
-    output += ', ';
-  }
-  return output.slice(0, output.length - 2);
-}
-
-function stringifyCurrency(currencies: Country['currencies']): string {
-  for (let currency of Object.values(currencies as Object)) {
-    return currency.name;
-  }
+  return (
+    <div className="text-xs justify-center pl-3 pr-3 pt-1 pb-1 shadow-md">
+      {country}
+    </div>
+  );
 }
 
 const CountryPage: NextPage<{ country: Country }> = ({ country }) => {
@@ -43,16 +33,29 @@ const CountryPage: NextPage<{ country: Country }> = ({ country }) => {
     languages,
     borders,
   } = country;
-  console.log(stringifyCurrency(currencies));
 
   return (
-    <div>
-      <button>Back</button>
-      <div className="grid grid-cols-2 p-10 h-full">
-        <img src={flags.png ?? ''} alt={name.common + '_flag'} />
-        <div>
-          <h1>{name.common}</h1>
-          <div className="grid grid-cols-2">
+    <div className="w-11/12 m-auto lg:min-h-[80vh] md:h-[60vh] grid-cols-1 grid items-center">
+      <div className='p-10'>
+        <div className="container pl-5 pr-5 pt-1 pb-1 text-xs shadow-lg h-8 w-fit flex items-center rounded-md">
+          <FaArrowLeft className="" />
+          <button className="pl-1 pr-2">Back</button>
+        </div>
+      </div>
+
+      <div className="grid md:grid-cols-1 lg:grid-cols-2 min-w-full m-auto">
+        <div className="flex align-middle justify-center min-h-full w-auto">
+          <img
+            className="min-h-full"
+            src={flags.png ?? ''}
+            alt={name.common + '_flag'}
+          />
+        </div>
+        <div className="p-10">
+          <h1 className="text-left font-bold text-2xl pt-6 pb-6">
+            {name.common}
+          </h1>
+          <div className="grid lg:grid-cols-2 md:grid-cols-1 gap-4">
             <div>
               <InfoField field="Native Name" value={name.common} />
               <InfoField field="Population" value={String(population)} />
@@ -68,12 +71,12 @@ const CountryPage: NextPage<{ country: Country }> = ({ country }) => {
               />
               <InfoField
                 field="Languages"
-                value={languages ? stringifyArr(languages) : ''}
+                value={languages ? stringifyLanguagesObj(languages) : ''}
               />
             </div>
           </div>
-          <div className="mt-10">
-            <InfoField field="Border Countries" value="" />
+          <div className="mt-10 flex w-full md:justify-items-center">
+            <h2 className="font-semibold text-sm pr-2">Border Countries:</h2>
             {borders?.map((border) => {
               return (
                 <BorderTile key={`${border}-bordertile`} country={border} />
