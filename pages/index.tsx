@@ -28,7 +28,7 @@ const Home: NextPage<{ countries: Country[]; regions: Region[] }> = ({
         <meta name="description" content="Padlet Take Home Assignment" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="container p-10 flex items-center w-5/6 m-auto">
+      <div className="container p-10 flex items-center w-5/6 mt-16 m-auto">
         <ControlPanel
           regions={regions}
           dropdownActive={dropDownActive}

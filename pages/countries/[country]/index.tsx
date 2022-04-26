@@ -1,6 +1,4 @@
-import { useRouter } from 'next/router';
 import { NextPage } from 'next';
-import Image from 'next/image';
 import { GetStaticPaths } from 'next/types';
 import { Country } from '../../../lib/country_types';
 import { fetchCountriesData, fetchCountry } from '../../../lib/fetch_data';
@@ -36,7 +34,7 @@ const CountryPage: NextPage<{ country: Country }> = ({ country }) => {
   } = country;
 
   return (
-    <div className="w-11/12 m-auto lg:min-h-[80vh] md:h-[60vh] grid-cols-1 grid items-center">
+    <div className="w-11/12 m-auto lg:min-h-[80vh] md:h-[60vh] grid-cols-1 grid items-center mt-16">
       <div className="pt-10 pb-10">
         <Link href={'/'}>
           <div className="container pl-5 pr-5 pt-1 pb-1 text-xs shadow-lg h-8 w-fit flex items-center rounded-md hover:scale-[1.05] duration-100">
