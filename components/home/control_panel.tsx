@@ -46,7 +46,7 @@ export default function ControlPanel({
 }: ControlPanelProps) {
   return (
     <div
-      className={`container flex md:flex-row flex-col items-center justify-between min-w-full`}
+      className={`container flex md:flex-row flex-col gap-3 items-center justify-between min-w-full`}
     >
       <div className="container flex items-center shadow-md pl-3 pt-2 pb-2 rounded-md md:w-2/5 w-full dark:bg-control-dark">
         <FaSearch className="fill-gray-400" />
@@ -68,7 +68,7 @@ export default function ControlPanel({
         </button>
         {dropdownActive ? (
           <div
-            className={`absolute left-0 top-16 w-full shadow-md rounded-lg bg-white dark:bg-control-dark`}
+            className={`absolute left-0 top-16 w-full shadow-md rounded-lg bg-white dark:bg-control-dark z-10`}
           >
             {regions.map((region) => (
               <DropDownItem
