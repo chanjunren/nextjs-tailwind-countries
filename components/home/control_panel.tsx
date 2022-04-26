@@ -61,11 +61,7 @@ export default function ControlPanel({
           <FaChevronDown />
         </button>
         {dropdownActive ? (
-          <div
-            className={`absolute duration-700 ease-in-out left-0 top-16 w-full shadow-md rounded-lg ${
-              dropdownActive ? `opacity-100` : 'opacity-0'
-            }`}
-          >
+          <div className={`absolute left-0 top-16 w-full shadow-md rounded-lg`}>
             {regions.map((region) => (
               <DropDownItem
                 key={`${region}-dropdown`}

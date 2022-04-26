@@ -15,7 +15,7 @@ interface BorderTileProps {
 
 function BorderTile({ country }: BorderTileProps) {
   return (
-    <div className="min-w-100 text-xs justify-center text-center pl-3 pr-3 pt-1 pb-1 shadow-md">
+    <div className="min-w-100 text-xs justify-center text-center pl-3 pr-3 pt-1 pb-1 shadow-md hover:scale-[1.08] duration-100">
       {country}
     </div>
   );
@@ -39,8 +39,8 @@ const CountryPage: NextPage<{ country: Country }> = ({ country }) => {
     <div className="w-11/12 m-auto lg:min-h-[80vh] md:h-[60vh] grid-cols-1 grid items-center">
       <div className="pt-10 pb-10">
         <Link href={'/'}>
-          <div className="container pl-5 pr-5 pt-1 pb-1 text-xs shadow-lg h-8 w-fit flex items-center rounded-md">
-            <FaArrowLeft className="" />
+          <div className="container pl-5 pr-5 pt-1 pb-1 text-xs shadow-lg h-8 w-fit flex items-center rounded-md hover:scale-[1.05] duration-100">
+            <FaArrowLeft />
             <button className="pl-1 pr-2">Back</button>
           </div>
         </Link>
