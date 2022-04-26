@@ -6,6 +6,7 @@ import InfoField from '../../../components/shared/info_field';
 import { stringifyCurrency, stringifyLanguagesObj } from '../../../lib/parser';
 import { FaArrowLeft } from 'react-icons/fa';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface BorderTileProps {
   country: string;
@@ -37,7 +38,7 @@ const CountryPage: NextPage<{ country: Country }> = ({ country }) => {
     <div className="dark:bg-main-dark dark:text-white min-h-screen lg:overflow-hidden">
       <div className="w-11/12 m-auto grid-cols-1 grid items-center mt-16">
         <div className="pt-10 pb-10">
-          <Link href={'/'}>
+          <Link href={'/'} passHref>
             <div className="container pl-5 pr-5 pt-1 pb-1 text-xs shadow-xl h-8 w-fit flex items-center rounded-md hover:scale-[1.05] duration-100 dark:bg-control-dark">
               <FaArrowLeft />
               <button className="pl-1 pr-2">Back</button>

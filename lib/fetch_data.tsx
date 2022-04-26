@@ -9,7 +9,7 @@ export async function fetchCountriesData() {
   const countries: Country[] = await res.json();
   const regions = new Set<Region>();
 
-  for (let country of countries) {
+  for (const country of countries) {
     if (!regions.has(country.region)) {
       regions.add(country.region);
     }

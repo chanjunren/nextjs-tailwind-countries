@@ -1,3 +1,12 @@
+### Development 
+1. `npm install` 
+2. `npn run dev`
+
+### Installation
+1. `npm install`
+1. `npm run build`
+2. `npm run start`
+
 ### Objective
 
 Your challenge is to integrate with the [REST Countries API](https://restcountries.com) to pull country data and display it like in the designs. Use JavaScript and any framework.
