@@ -45,8 +45,8 @@ export default function ControlPanel({
   searchInputHandler,
 }: ControlPanelProps) {
   return (
-    <div className="container flex items-center justify-between min-w-full">
-      <div className="container flex items-center shadow-md p-2 rounded-md w-2/5">
+    <div className="container flex md:flex-row flex-col items-center justify-between min-w-full">
+      <div className="container flex items-center shadow-md p-2 rounded-md md:w-2/5 w-full">
         <FaSearch className="fill-gray-400" />
         <input
           className="focus:outline-none p-2 w-full"
@@ -54,7 +54,7 @@ export default function ControlPanel({
           onInput={searchInputHandler}
         />
       </div>
-      <div className="container relative items-center w-2/5">
+      <div className="container relative items-center md:w-2/5 w-full">
         <button
           className="container flex shadow-md p-2 rounded-md items-center justify-between"
           onClick={toggleDropDown}
