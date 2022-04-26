@@ -64,7 +64,7 @@ export default function ControlPanel({
           <p className="p-2">{`${
             filter === '' ? 'Filter by Region' : filter
           }`}</p>
-          <FaChevronDown />
+          <FaChevronDown className={`${dropdownActive ? 'rotate-180':''} duration-200`} />
         </button>
         {dropdownActive ? (
           <div
