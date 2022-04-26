@@ -7,6 +7,7 @@ import { fetchCountriesData, fetchCountry } from '../../../lib/fetch_data';
 import InfoField from '../../../components/shared/info_field';
 import { stringifyCurrency, stringifyLanguagesObj } from '../../../lib/parser';
 import { FaArrowLeft } from 'react-icons/fa';
+import Link from 'next/link';
 
 interface BorderTileProps {
   country: string;
@@ -14,7 +15,7 @@ interface BorderTileProps {
 
 function BorderTile({ country }: BorderTileProps) {
   return (
-    <div className="text-xs justify-center pl-3 pr-3 pt-1 pb-1 shadow-md">
+    <div className="min-w-100 text-xs justify-center text-center pl-3 pr-3 pt-1 pb-1 shadow-md">
       {country}
     </div>
   );
@@ -36,14 +37,16 @@ const CountryPage: NextPage<{ country: Country }> = ({ country }) => {
 
   return (
     <div className="w-11/12 m-auto lg:min-h-[80vh] md:h-[60vh] grid-cols-1 grid items-center">
-      <div className='p-10'>
-        <div className="container pl-5 pr-5 pt-1 pb-1 text-xs shadow-lg h-8 w-fit flex items-center rounded-md">
-          <FaArrowLeft className="" />
-          <button className="pl-1 pr-2">Back</button>
-        </div>
+      <div className="pt-10 pb-10">
+        <Link href={'/'}>
+          <div className="container pl-5 pr-5 pt-1 pb-1 text-xs shadow-lg h-8 w-fit flex items-center rounded-md">
+            <FaArrowLeft className="" />
+            <button className="pl-1 pr-2">Back</button>
+          </div>
+        </Link>
       </div>
 
-      <div className="grid md:grid-cols-1 lg:grid-cols-2 min-w-full m-auto">
+      <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-10 min-w-full m-auto">
         <div className="flex align-middle justify-center min-h-full w-auto">
           <img
             className="min-h-full"
@@ -51,7 +54,7 @@ const CountryPage: NextPage<{ country: Country }> = ({ country }) => {
             alt={name.common + '_flag'}
           />
         </div>
-        <div className="p-10">
+        <div className='p-10'>
           <h1 className="text-left font-bold text-2xl pt-6 pb-6">
             {name.common}
           </h1>
@@ -75,13 +78,15 @@ const CountryPage: NextPage<{ country: Country }> = ({ country }) => {
               />
             </div>
           </div>
-          <div className="mt-10 flex w-full md:justify-items-center">
-            <h2 className="font-semibold text-sm pr-2">Border Countries:</h2>
-            {borders?.map((border) => {
-              return (
-                <BorderTile key={`${border}-bordertile`} country={border} />
-              );
-            })}
+          <div className="flex container mt-10 lg:flex-row flex-col">
+            <h2 className="font-semibold flex items-center text-sm pr-2">Border Countries:</h2>
+            <div className="grid grid-cols-4 gap-2">
+              {borders?.map((border) => {
+                return (
+                  <BorderTile key={`${border}-bordertile`} country={border} />
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

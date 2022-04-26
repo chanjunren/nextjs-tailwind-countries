@@ -1,7 +1,11 @@
 import { Country, Region } from './country_types';
 
 export async function fetchCountriesData() {
-  const res = await fetch('https://restcountries.com/v3.1/all');
+  const res = await fetch('https://restcountries.com/v3.1/all', {
+    headers: {
+      'Cache-Control': 's-maxage=31536000, stale-while-revalidate',
+    },
+  });
   const countries: Country[] = await res.json();
   const regions = new Set<Region>();
 
@@ -15,10 +19,14 @@ export async function fetchCountriesData() {
 }
 
 export async function fetchCountry(countryName: string) {
-  console.log(
-    `trying to fetch from https://restcountries.com/v3.1/name/${countryName}`
+  const res = await fetch(
+    `https://restcountries.com/v3.1/name/${countryName}`,
+    {
+      headers: {
+        'Cache-Control': 's-maxage=31536000, stale-while-revalidate',
+      },
+    }
   );
-  const res = await fetch(`https://restcountries.com/v3.1/name/${countryName}`);
   const country: Country[] = await res.json();
   return country[0];
 }
