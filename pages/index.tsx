@@ -41,7 +41,7 @@ const Home: NextPage<{ countries: Country[]; regions: Region[] }> = ({
         </div>
         <div
           className={
-            'grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-x-10 gap-y-28 p-10 w-5/6 m-auto'
+            'grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-x-10 gap-y-28 p-10 w-5/6 m-auto justify-center align-center'
           }
         >
           {countries

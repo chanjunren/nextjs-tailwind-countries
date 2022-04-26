@@ -5,9 +5,9 @@ import InfoField from '../shared/info_field';
 export default function CountryCard(country: Country) {
   return (
     <Link href={`/countries/${country.name.common}`}>
-      <div className="grid grid-col-1 shadow-lg rounded-md min-w-fit pb-20 cursor-pointer hover:scale-[1.02] duration-100 dark:bg-control-dark">
+      <div className="flex flex-col shadow-lg rounded-md w-[200px] min-w-fit pb-20 cursor-pointer hover:scale-[1.02] duration-100 dark:bg-control-dark">
         <img
-          className="rounded-md min-w-full lg:h-36 xl:h-52"
+          className="rounded-md h-[120px] lg:h-36 xl:h-52"
           src={country.flags.png}
           alt={country.name.common + '_flag'}
         />

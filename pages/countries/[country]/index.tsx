@@ -34,58 +34,60 @@ const CountryPage: NextPage<{ country: Country }> = ({ country }) => {
   } = country;
 
   return (
-    <div className="w-11/12 m-auto lg:min-h-[80vh] md:h-[60vh] grid-cols-1 grid items-center mt-16 dark:bg-main-dark dark:text-white">
-      <div className="pt-10 pb-10">
-        <Link href={'/'}>
-          <div className="container pl-5 pr-5 pt-1 pb-1 text-xs shadow-xl h-8 w-fit flex items-center rounded-md hover:scale-[1.05] duration-100 dark:bg-control-dark">
-            <FaArrowLeft />
-            <button className="pl-1 pr-2">Back</button>
-          </div>
-        </Link>
-      </div>
-
-      <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-10 min-w-full m-auto">
-        <div className="flex align-middle justify-center min-h-full w-auto">
-          <img
-            className="min-h-full"
-            src={flags.png ?? ''}
-            alt={name.common + '_flag'}
-          />
+    <div className="dark:bg-main-dark dark:text-white min-h-screen lg:overflow-hidden">
+      <div className="w-11/12 m-auto grid-cols-1 grid items-center mt-16">
+        <div className="pt-10 pb-10">
+          <Link href={'/'}>
+            <div className="container pl-5 pr-5 pt-1 pb-1 text-xs shadow-xl h-8 w-fit flex items-center rounded-md hover:scale-[1.05] duration-100 dark:bg-control-dark">
+              <FaArrowLeft />
+              <button className="pl-1 pr-2">Back</button>
+            </div>
+          </Link>
         </div>
-        <div className="p-10">
-          <h1 className="text-left font-bold text-2xl pt-6 pb-6">
-            {name.common}
-          </h1>
-          <div className="grid lg:grid-cols-2 md:grid-cols-1 gap-4">
-            <div>
-              <InfoField field="Native Name" value={name.common} />
-              <InfoField field="Population" value={String(population)} />
-              <InfoField field="Region" value={region} />
-              <InfoField field="Sub Region" value={subregion ?? ''} />
-              <InfoField field="Capital" value={capital ? capital[0] : ''} />
-            </div>
-            <div>
-              <InfoField field="Top Level Domain" value={tld ? tld[0] : ''} />
-              <InfoField
-                field="Currency"
-                value={stringifyCurrency(currencies)}
-              />
-              <InfoField
-                field="Languages"
-                value={languages ? stringifyLanguagesObj(languages) : ''}
-              />
-            </div>
+
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-10 min-w-full m-auto">
+          <div className="flex align-middle justify-center min-h-full w-auto">
+            <img
+              className="min-h-full object-scale-down"
+              src={flags.png ?? ''}
+              alt={name.common + '_flag'}
+            />
           </div>
-          <div className="flex container mt-10 lg:flex-row flex-col gap-y-3">
-            <h2 className="font-semibold flex items-center text-sm pr-2">
-              Border Countries:
-            </h2>
-            <div className="grid grid-cols-4 gap-x-3">
-              {borders?.map((border) => {
-                return (
-                  <BorderTile key={`${border}-bordertile`} country={border} />
-                );
-              })}
+          <div className="p-10 md:pt-2 dark:bg-main-dark">
+            <h1 className="text-left font-bold text-2xl pt-6 pb-6">
+              {name.common}
+            </h1>
+            <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-4">
+              <div>
+                <InfoField field="Native Name" value={name.common} />
+                <InfoField field="Population" value={String(population)} />
+                <InfoField field="Region" value={region} />
+                <InfoField field="Sub Region" value={subregion ?? ''} />
+                <InfoField field="Capital" value={capital ? capital[0] : ''} />
+              </div>
+              <div>
+                <InfoField field="Top Level Domain" value={tld ? tld[0] : ''} />
+                <InfoField
+                  field="Currency"
+                  value={stringifyCurrency(currencies)}
+                />
+                <InfoField
+                  field="Languages"
+                  value={languages ? stringifyLanguagesObj(languages) : ''}
+                />
+              </div>
+            </div>
+            <div className="flex container mt-10 lg:flex-row flex-col gap-y-3">
+              <h2 className="font-semibold flex items-center text-sm pr-2">
+                Border Countries:
+              </h2>
+              <div className="grid grid-cols-4 gap-x-3">
+                {borders?.map((border) => {
+                  return (
+                    <BorderTile key={`${border}-bordertile`} country={border} />
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>

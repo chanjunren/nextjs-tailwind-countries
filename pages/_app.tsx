@@ -5,7 +5,6 @@ import useTheme from '../lib/theme_hook';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { theme, toggleThemeHandler } = useTheme();
-  console.log('being rerendered');
   return (
     <>
       <NavBar toggleThemeHandler={toggleThemeHandler} theme={theme} />
