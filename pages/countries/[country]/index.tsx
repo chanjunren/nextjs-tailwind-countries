@@ -13,7 +13,7 @@ interface BorderTileProps {
 
 function BorderTile({ country }: BorderTileProps) {
   return (
-    <div className="min-w-100 text-xs justify-center text-center pl-3 pr-3 pt-1 pb-1 shadow-md hover:scale-[1.08] duration-100">
+    <div className="min-w-100 text-xs justify-center text-center pl-3 pr-3 pt-1 pb-1 shadow-md hover:scale-[1.08] duration-100 dark:bg-control-dark">
       {country}
     </div>
   );
@@ -34,10 +34,10 @@ const CountryPage: NextPage<{ country: Country }> = ({ country }) => {
   } = country;
 
   return (
-    <div className="w-11/12 m-auto lg:min-h-[80vh] md:h-[60vh] grid-cols-1 grid items-center mt-16">
+    <div className="w-11/12 m-auto lg:min-h-[80vh] md:h-[60vh] grid-cols-1 grid items-center mt-16 dark:bg-main-dark dark:text-white">
       <div className="pt-10 pb-10">
         <Link href={'/'}>
-          <div className="container pl-5 pr-5 pt-1 pb-1 text-xs shadow-lg h-8 w-fit flex items-center rounded-md hover:scale-[1.05] duration-100">
+          <div className="container pl-5 pr-5 pt-1 pb-1 text-xs shadow-xl h-8 w-fit flex items-center rounded-md hover:scale-[1.05] duration-100 dark:bg-control-dark">
             <FaArrowLeft />
             <button className="pl-1 pr-2">Back</button>
           </div>
@@ -52,7 +52,7 @@ const CountryPage: NextPage<{ country: Country }> = ({ country }) => {
             alt={name.common + '_flag'}
           />
         </div>
-        <div className='p-10'>
+        <div className="p-10">
           <h1 className="text-left font-bold text-2xl pt-6 pb-6">
             {name.common}
           </h1>
@@ -76,9 +76,11 @@ const CountryPage: NextPage<{ country: Country }> = ({ country }) => {
               />
             </div>
           </div>
-          <div className="flex container mt-10 lg:flex-row flex-col">
-            <h2 className="font-semibold flex items-center text-sm pr-2">Border Countries:</h2>
-            <div className="grid grid-cols-4 gap-2">
+          <div className="flex container mt-10 lg:flex-row flex-col gap-y-3">
+            <h2 className="font-semibold flex items-center text-sm pr-2">
+              Border Countries:
+            </h2>
+            <div className="grid grid-cols-4 gap-x-3">
               {borders?.map((border) => {
                 return (
                   <BorderTile key={`${border}-bordertile`} country={border} />

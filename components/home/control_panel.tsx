@@ -28,7 +28,7 @@ function DropDownItem({
 
   return (
     <button
-      className="p-3 shadow-sm w-full text-left hover:bg-orange-500 rounded-sm hover:text-white bg-white"
+      className="p-3 shadow-sm w-full text-left hover:bg-orange-500 rounded-sm hover:text-white"
       onClick={selectItem}
     >
       {regionName}
@@ -45,18 +45,20 @@ export default function ControlPanel({
   searchInputHandler,
 }: ControlPanelProps) {
   return (
-    <div className="container flex md:flex-row flex-col items-center justify-between min-w-full">
-      <div className="container flex items-center shadow-md p-2 rounded-md md:w-2/5 w-full">
+    <div
+      className={`container flex md:flex-row flex-col items-center justify-between min-w-full`}
+    >
+      <div className="container flex items-center shadow-md pl-3 pt-2 pb-2 rounded-md md:w-2/5 w-full dark:bg-control-dark">
         <FaSearch className="fill-gray-400" />
         <input
-          className="focus:outline-none p-2 w-full"
+          className="focus:outline-none p-2 w-full dark:bg-control-dark"
           placeholder="Search for a country..."
           onInput={searchInputHandler}
         />
       </div>
       <div className="container relative items-center md:w-2/5 w-full">
         <button
-          className="container flex shadow-md p-2 rounded-md items-center justify-between"
+          className="dark:bg-control-dark container flex shadow-md p-2 pr-3 rounded-md items-center justify-between"
           onClick={toggleDropDown}
         >
           <p className="p-2">{`${
@@ -65,7 +67,9 @@ export default function ControlPanel({
           <FaChevronDown />
         </button>
         {dropdownActive ? (
-          <div className={`absolute left-0 top-16 w-full shadow-md rounded-lg`}>
+          <div
+            className={`absolute left-0 top-16 w-full shadow-md rounded-lg bg-white dark:bg-control-dark`}
+          >
             {regions.map((region) => (
               <DropDownItem
                 key={`${region}-dropdown`}

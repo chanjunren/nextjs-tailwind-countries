@@ -1,6 +1,11 @@
 module.exports = {
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'main-dark': '#202d36',
+        'control-dark': '#2b3743',
+      },
+    },
   },
   purge: [
     './pages/**/*.{js,ts,jsx,tsx}',
