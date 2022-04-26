@@ -1,14 +1,22 @@
 import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
-import { useState } from 'react';
+import { ChangeEvent, SyntheticEvent, useState } from 'react';
 import ControlPanel from '../components/home/control_panel';
 import CountryCard from '../components/home/country_card';
 import { fetchCountriesData } from '../lib/fetch_data';
 import { Country, Region } from '../lib/country_types';
 
-const Home: NextPage<{ countries: Country[], regions:Region[] }> = ({ countries, regions }) => {
+const Home: NextPage<{ countries: Country[]; regions: Region[] }> = ({
+  countries,
+  regions,
+}) => {
   const [dropDownActive, setDropDown] = useState(false);
-  const [filter, setFilter] = useState('');
+  const [regionFilter, setRegionFilter] = useState('');
+  const [searchFilter, setSearchFilter] = useState('');
+
+  const onSearchInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchFilter(event.target.value);
+  };
 
   const toggleDropDown = () => {
     setDropDown(!dropDownActive);
@@ -25,31 +33,39 @@ const Home: NextPage<{ countries: Country[], regions:Region[] }> = ({ countries,
           regions={regions}
           dropdownActive={dropDownActive}
           toggleDropDown={toggleDropDown}
-          filter={filter}
-          setFilter={setFilter}
+          filter={regionFilter}
+          setFilter={setRegionFilter}
+          searchInputHandler={onSearchInputHandler}
         />
       </div>
       <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-x-10 gap-y-28 p-10 w-5/6 m-auto">
-        {countries.map((country) => {
-          return (
-            <CountryCard
-              key={country.name.common + '_country_card'}
-              {...country}
-            />
-          );
-        })}
+        {countries
+          .filter((country) =>
+            country.name.common
+              .toLowerCase()
+              .startsWith(searchFilter.toLowerCase()) && regionFilter == ''
+              ? true
+              : country.region == regionFilter
+          )
+          .map((country) => {
+            return (
+              <CountryCard
+                key={country.name.common + '_country_card'}
+                {...country}
+              />
+            );
+          })}
       </div>
     </div>
   );
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const {countries, regionsArray} = await fetchCountriesData();
-  console.log(regionsArray);
+  const { countries, regionsArray } = await fetchCountriesData();
   return {
     props: {
       countries: countries,
-      regions: regionsArray
+      regions: regionsArray,
     },
   };
 };

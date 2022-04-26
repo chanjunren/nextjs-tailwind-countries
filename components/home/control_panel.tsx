@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react';
 import { FaSearch, FaChevronDown } from 'react-icons/fa';
 
 interface DropDownItemProps {
@@ -12,6 +13,7 @@ interface ControlPanelProps {
   toggleDropDown: () => void;
   filter: string;
   setFilter: (filter: string) => void;
+  searchInputHandler: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 function DropDownItem({
@@ -26,7 +28,7 @@ function DropDownItem({
 
   return (
     <button
-      className="p-3 shadow-sm w-full text-left hover:bg-cyan-600 hover:text-white bg-white"
+      className="p-3 shadow-sm w-full text-left hover:bg-orange-500 rounded-sm hover:text-white bg-white"
       onClick={selectItem}
     >
       {regionName}
@@ -40,6 +42,7 @@ export default function ControlPanel({
   toggleDropDown,
   filter,
   setFilter,
+  searchInputHandler,
 }: ControlPanelProps) {
   return (
     <div className="container flex items-center justify-between min-w-full">
@@ -48,6 +51,7 @@ export default function ControlPanel({
         <input
           className="focus:outline-none p-2 w-full"
           placeholder="Search for a country..."
+          onInput={searchInputHandler}
         />
       </div>
       <div className="container relative items-center w-2/5">
