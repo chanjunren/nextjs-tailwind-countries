@@ -1,7 +1,7 @@
 import type { AppProps } from 'next/app';
 import 'tailwindcss/tailwind.css';
 import NavBar from '../components/shared/nav_bar';
-import useTheme from '../lib/theme_hook';
+import useTheme from '../lib/hooks/theme_hook';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { theme, toggleThemeHandler } = useTheme();

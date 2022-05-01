@@ -1,12 +1,15 @@
 import { NextPage } from 'next';
 import { GetStaticPaths } from 'next/types';
-import { Country } from '../../../lib/country_types';
-import { fetchCountriesData, fetchCountry } from '../../../lib/fetch_data';
+import { Country } from '../../../lib/utils/country_types';
+import {
+  fetchBorderCountries,
+  fetchCountriesData,
+  fetchCountry,
+} from '../../../lib/utils/fetch_data';
 import InfoField from '../../../components/shared/info_field';
-import { stringifyCurrency, stringifyLanguagesObj } from '../../../lib/parser';
+import { stringifyCurrency, stringifyLanguagesObj } from '../../../lib/utils/parser';
 import { FaArrowLeft } from 'react-icons/fa';
 import Link from 'next/link';
-import Image from 'next/image';
 
 interface BorderTileProps {
   country: string;
@@ -33,7 +36,7 @@ const CountryPage: NextPage<{ country: Country }> = ({ country }) => {
     languages,
     borders,
   } = country;
-
+  fetchBorderCountries(borders ? borders : []);
   return (
     <div className="dark:bg-main-dark dark:text-white min-h-screen lg:overflow-hidden">
       <div className="w-11/12 m-auto grid-cols-1 grid items-center mt-16">
@@ -103,7 +106,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths: countries.map((country) => {
       return {
         params: {
-          country: country.name.common.toString(),
+          country: country.name.official.toString(),
         },
       };
     }),

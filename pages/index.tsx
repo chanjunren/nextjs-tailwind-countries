@@ -3,8 +3,8 @@ import Head from 'next/head';
 import { ChangeEvent, useState } from 'react';
 import ControlPanel from '../components/home/control_panel';
 import CountryCard from '../components/home/country_card';
-import { fetchCountriesData } from '../lib/fetch_data';
-import { Country, Region } from '../lib/country_types';
+import { fetchCountriesData } from '../lib/utils/fetch_data';
+import { Country, Region } from '../lib/utils/country_types';
 
 const Home: NextPage<{ countries: Country[]; regions: Region[] }> = ({
   countries,
