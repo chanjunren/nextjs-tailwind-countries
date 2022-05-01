@@ -1,18 +1,16 @@
 import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useContext, useState } from 'react';
 import ControlPanel from '../components/home/control_panel';
-import { fetchCountriesData } from '../lib/utils/fetch_data';
-import { Country, Region } from '../lib/utils/country_types';
 import VirtualRenderer from '../components/home/virtual_renderer';
+import DataContext from '../lib/context/data_context';
 
-const Home: NextPage<{ countries: Country[]; regions: Region[] }> = ({
-  countries,
-  regions,
-}) => {
+const Home: NextPage = () => {
   const [dropDownActive, setDropDown] = useState(false);
   const [regionFilter, setRegionFilter] = useState('');
   const [searchFilter, setSearchFilter] = useState('');
+
+  const dataContext = useContext(DataContext);
 
   const onSearchInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchFilter(event.target.value);
@@ -31,7 +29,7 @@ const Home: NextPage<{ countries: Country[]; regions: Region[] }> = ({
       <div className="dark:bg-main-dark dark:text-white text-black min-h-screen">
         <div className={'container p-10 flex items-center w-5/6 mt-16 m-auto'}>
           <ControlPanel
-            regions={regions}
+            regions={dataContext.regions}
             dropdownActive={dropDownActive}
             toggleDropDown={toggleDropDown}
             filter={regionFilter}
@@ -40,23 +38,13 @@ const Home: NextPage<{ countries: Country[]; regions: Region[] }> = ({
           />
         </div>
         <VirtualRenderer
-          countries={countries}
+          countries={dataContext.countries}
           regionFilter={regionFilter}
           searchFilter={searchFilter}
         />
       </div>
     </div>
   );
-};
-
-export const getStaticProps: GetStaticProps = async () => {
-  const { countries, regionsArray } = await fetchCountriesData();
-  return {
-    props: {
-      countries: countries,
-      regions: regionsArray,
-    },
-  };
 };
 
 export default Home;

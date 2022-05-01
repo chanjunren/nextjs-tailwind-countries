@@ -2,7 +2,6 @@ import { NextPage } from 'next';
 import { GetStaticPaths } from 'next/types';
 import { Country } from '../../../lib/utils/country_types';
 import {
-  fetchBorderCountries,
   fetchCountriesData,
   fetchCountry,
 } from '../../../lib/utils/fetch_data';
@@ -36,7 +35,6 @@ const CountryPage: NextPage<{ country: Country }> = ({ country }) => {
     languages,
     borders,
   } = country;
-  fetchBorderCountries(borders ? borders : []);
   return (
     <div className="dark:bg-main-dark dark:text-white min-h-screen lg:overflow-hidden">
       <div className="w-11/12 m-auto grid-cols-1 grid items-center mt-16">

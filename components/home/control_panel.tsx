@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react';
 import { FaSearch, FaChevronDown } from 'react-icons/fa';
+import { Region } from '../../lib/utils/country_types';
 
 interface DropDownItemProps {
   regionName: string;
@@ -8,7 +9,7 @@ interface DropDownItemProps {
 }
 
 interface ControlPanelProps {
-  regions: string[];
+  regions: Set<Region>;
   dropdownActive: boolean;
   toggleDropDown: () => void;
   filter: string;
@@ -64,13 +65,15 @@ export default function ControlPanel({
           <p className="p-2">{`${
             filter === '' ? 'Filter by Region' : filter
           }`}</p>
-          <FaChevronDown className={`${dropdownActive ? 'rotate-180':''} duration-200`} />
+          <FaChevronDown
+            className={`${dropdownActive ? 'rotate-180' : ''} duration-200`}
+          />
         </button>
         {dropdownActive ? (
           <div
             className={`absolute left-0 top-16 w-full shadow-md rounded-lg bg-white dark:bg-control-dark z-10`}
           >
-            {regions.map((region) => (
+            {Array.from(regions).map((region) => (
               <DropDownItem
                 key={`${region}-dropdown`}
                 regionName={region}
