@@ -2,13 +2,18 @@ import { NextPage } from 'next';
 import { GetStaticPaths } from 'next/types';
 import { Country } from '../../../lib/utils/country_types';
 import {
-  fetchCountriesData,
-  fetchCountry,
+  fetchCountries,
+  fetchCountryPage,
 } from '../../../lib/utils/fetch_data';
 import InfoField from '../../../components/shared/info_field';
-import { stringifyCurrency, stringifyLanguagesObj } from '../../../lib/utils/parser';
+import {
+  stringifyCurrency,
+  stringifyLanguagesObj,
+} from '../../../lib/utils/parser';
 import { FaArrowLeft } from 'react-icons/fa';
 import Link from 'next/link';
+import { useContext } from 'react';
+import DataContext from '../../../lib/context/data_context';
 
 interface BorderTileProps {
   country: string;
@@ -16,7 +21,7 @@ interface BorderTileProps {
 
 function BorderTile({ country }: BorderTileProps) {
   return (
-    <div className="min-w-100 text-xs justify-center text-center pl-3 pr-3 pt-1 pb-1 shadow-md hover:scale-[1.08] duration-100 dark:bg-control-dark">
+    <div className="min-w-100 text-xs justify-center text-center pl-3 pr-3 pt-1 pb-1 shadow-md hover:scale-[1.08] duration-100 dark:bg-control-dark cursor-default">
       {country}
     </div>
   );
@@ -35,6 +40,10 @@ const CountryPage: NextPage<{ country: Country }> = ({ country }) => {
     languages,
     borders,
   } = country;
+
+  const dataContext = useContext(DataContext);
+  const borderCountriesMap = dataContext.borderCountriesMap;
+
   return (
     <div className="dark:bg-main-dark dark:text-white min-h-screen lg:overflow-hidden">
       <div className="w-11/12 m-auto grid-cols-1 grid items-center mt-16">
@@ -86,7 +95,14 @@ const CountryPage: NextPage<{ country: Country }> = ({ country }) => {
               <div className="grid grid-cols-4 gap-x-3">
                 {borders?.map((border) => {
                   return (
-                    <BorderTile key={`${border}-bordertile`} country={border} />
+                    <BorderTile
+                      key={`${border}-bordertile`}
+                      country={
+                        borderCountriesMap.has(border)
+                          ? borderCountriesMap.get(border)!
+                          : border
+                      }
+                    />
                   );
                 })}
               </div>
@@ -99,7 +115,7 @@ const CountryPage: NextPage<{ country: Country }> = ({ country }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { countries } = await fetchCountriesData();
+  const { countries } = await fetchCountries();
   return {
     paths: countries.map((country) => {
       return {
@@ -117,7 +133,7 @@ export const getStaticProps = async ({
 }: {
   params: { country: string };
 }) => {
-  const country: Country = await fetchCountry(params.country);
+  const country: Country = await fetchCountryPage(params.country);
   return { props: { country: country } };
 };
 

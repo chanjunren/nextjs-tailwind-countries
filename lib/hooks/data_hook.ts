@@ -25,7 +25,7 @@ const useCountriesData = () => {
     }
     const map = new Map();
     for (const country of countriesArr) {
-      map.set(country.name.official, country.cioc);
+      map.set(country.cioc, country.name.common);
     }
     setBorderCountriesMap(map);
   }
