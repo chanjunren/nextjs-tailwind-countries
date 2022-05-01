@@ -2,9 +2,9 @@ import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { ChangeEvent, useState } from 'react';
 import ControlPanel from '../components/home/control_panel';
-import CountryCard from '../components/home/country_card';
 import { fetchCountriesData } from '../lib/utils/fetch_data';
 import { Country, Region } from '../lib/utils/country_types';
+import VirtualRenderer from '../components/home/virtual_renderer';
 
 const Home: NextPage<{ countries: Country[]; regions: Region[] }> = ({
   countries,
@@ -39,28 +39,11 @@ const Home: NextPage<{ countries: Country[]; regions: Region[] }> = ({
             searchInputHandler={onSearchInputHandler}
           />
         </div>
-        <div
-          className={
-            'grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-x-10 gap-y-28 p-10 w-5/6 m-auto justify-center align-center'
-          }
-        >
-          {countries
-            .filter((country) =>
-              country.name.common
-                .toLowerCase()
-                .startsWith(searchFilter.toLowerCase()) && regionFilter == ''
-                ? true
-                : country.region == regionFilter
-            )
-            .map((country) => {
-              return (
-                <CountryCard
-                  key={country.name.common + '_country_card'}
-                  {...country}
-                />
-              );
-            })}
-        </div>
+        <VirtualRenderer
+          countries={countries}
+          regionFilter={regionFilter}
+          searchFilter={searchFilter}
+        />
       </div>
     </div>
   );
