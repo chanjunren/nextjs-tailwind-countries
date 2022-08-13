@@ -1,6 +1,7 @@
 {
   "name": "padlet_takehome",
   "version": "0.1.0",
+  "homepage": "https://chanjunren.github.io/nextjs-tailwind-countries/",
   "private": true,
   "scripts": {
     "dev": "next dev",
