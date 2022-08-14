@@ -6,11 +6,11 @@ jobs:
     steps:
       - name: Building...
         run: |
-          ls ${{ github.workspace }}
+          npm run build
       - name: Exporting...
         run: |
-          ls ${{ github.workspace }}
+          npm run export
       - name: Creating a file telling Github not to build the project using Jekyll
         run: |
-          ls ${{ github.workspace }}
+          touch out/.nojekyll
       - run: echo "🍏 This job's status is ${{ job.status }}."
