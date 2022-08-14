@@ -1,0 +1,16 @@
+name: deployment-actions
+on: [push]
+jobs:
+  Deployment-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Building...
+        run: |
+          ls ${{ github.workspace }}
+      - name: Exporting...
+        run: |
+          ls ${{ github.workspace }}
+      - name: Creating a file telling Github not to build the project using Jekyll
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
